@@ -1,4 +1,4 @@
-#define imu_init -174  //Set initial value here
+#define imu_init -174  //Set initial values here
 
 #define push 22
 #define dir1 26
