@@ -1,4 +1,4 @@
-int imu_init = 155 ; //Set initial value here
+int imu_init ;//= 123 ; //Set initial value here
 
 #define push 22
 #define dir1 26
@@ -18,7 +18,7 @@ int maxspeed=40;
 
 void setup() {
 Serial.begin(115200);
-Serial3.begin(115200);
+Serial3.begin(57600);
 
 pinMode(22,INPUT_PULLUP);
 pinMode(dir1,OUTPUT);
@@ -33,10 +33,9 @@ analogWrite(pwm1,100);
 }
 
 void loop()
-{
- 
-  /*read_imu();
-  Serial.println(yaw);*/
+{ 
+//  read_imu();
+//  Serial.println(yaw);
 //  Serial.print(" ");
 //  Serial.println(mapyaw);
 

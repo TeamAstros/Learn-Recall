@@ -4,6 +4,7 @@ void read_imu()
   {
    val=Serial3.readStringUntil('/');
    yaw=val.toInt();
+   //Serial.println(yaw);
    //IMU_setup();
   }
 }
