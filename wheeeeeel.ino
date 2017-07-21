@@ -15,9 +15,9 @@ void mapwheels(int my_yaw)
     speed2 = maxspeed;
     speed1 = map(my_yaw,-3,-90,maxspeed-1,0);
   }
-  Serial.print("Yaw ");Serial.print(my_yaw);
-  Serial.print(" Speed 1  ");Serial.print(speed1);
-    Serial.print("  Speed 2   ");Serial.println(speed2);
+  Serial.print(" MappedYaw : ");Serial.print(my_yaw);
+  Serial.print(" Speed1 ");Serial.print(speed1);
+  Serial.print(" Speed2 ");Serial.println(speed2);
   runwheels();
 }
 

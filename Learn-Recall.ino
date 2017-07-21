@@ -1,4 +1,4 @@
-#define imu_init -174  //Set initial value here
+int imu_init = 155 ; //Set initial value here
 
 #define push 22
 #define dir1 26
@@ -34,34 +34,35 @@ analogWrite(pwm1,100);
 
 void loop()
 {
-read_imu();
-/*
-Serial.print(yaw);
-Serial.print(" ");
-Serial.println(mapyaw);
-*/
-if(!digitalRead(push))
-{
-  Serial.println("push main hai");
-  time1=millis();
-  flag++;
-  while(!digitalRead(push));
-}
-if(flag==1)
-{
- store_imu(); 
-}
-else if(flag==2)
-{
-  delay(3000);
-  Serial.println("recall");
-  recall();
-  flag=-999;
-}
-else {
-  analogWrite(pwm1,0);
-  digitalWrite(dir1,HIGH);
-  analogWrite(pwm2,0);
-  digitalWrite(dir2,LOW);
+ 
+  /*read_imu();
+  Serial.println(yaw);*/
+//  Serial.print(" ");
+//  Serial.println(mapyaw);
+
+  if(!digitalRead(push)) // Button pressed
+  {
+    Serial.println("push main hai");
+    time1=millis();
+    flag++;
+    while(!digitalRead(push));
+  }
+  if(flag==1)
+  {
+   store_imu(); 
+  }
+  else if(flag==2)
+  {
+    Serial.println("recall");
+    delay(3000);
+    recall();
+    flag=-999;
+  }
+  else 
+  {
+    analogWrite(pwm1,0);
+    digitalWrite(dir1,HIGH);
+    analogWrite(pwm2,0);
+    digitalWrite(dir2,LOW);
   }
 }
