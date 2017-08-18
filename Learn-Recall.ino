@@ -1,10 +1,9 @@
-#define imu_init -174  //Set initial value here
+//#include<SoftwareSerial.h>
+//SoftwareSerial saber(2,3);
 
 #define push 22
-#define dir1 26
-#define dir2 28
-#define pwm1 3
-#define pwm2 4
+
+int imu_init ;//= 123 ; //Set initial value here
 
 int time1=millis();
 int time2;
@@ -16,13 +15,15 @@ String val;
 int speed1=0,speed2=0;
 int maxspeed=40;
 
-void setup() {
+void setup()
+{
 Serial.begin(115200);
-Serial3.begin(115200);
+Serial3.begin(57600);
+Serial1.begin(9600);   
 
-pinMode(22,INPUT_PULLUP);
-pinMode(dir1,OUTPUT);
-pinMode(dir2,OUTPUT);
+pinMode(push,INPUT_PULLUP);
+pinMode(13,OUTPUT);
+digitalWrite(13,LOW);
 /*
 analogWrite(pwm1,100);
   digitalWrite(dir1,HIGH);
@@ -33,35 +34,37 @@ analogWrite(pwm1,100);
 }
 
 void loop()
-{
-read_imu();
-/*
-Serial.print(yaw);
-Serial.print(" ");
-Serial.println(mapyaw);
-*/
-if(!digitalRead(push))
-{
-  Serial.println("push main hai");
-  time1=millis();
-  flag++;
-  while(!digitalRead(push));
-}
-if(flag==1)
-{
- store_imu(); 
-}
-else if(flag==2)
-{
-  delay(3000);
-  Serial.println("recall");
-  recall();
-  flag=-999;
-}
-else {
-  analogWrite(pwm1,0);
-  digitalWrite(dir1,HIGH);
-  analogWrite(pwm2,0);
-  digitalWrite(dir2,LOW);
+{ 
+//  read_imu();
+//  Serial.println(yaw);
+//  Serial.print(" ");
+//  Serial.println(mapyaw);
+  if(!digitalRead(push)) // Button pressed
+  {
+    Serial.println("push main hai");
+    time1=millis();
+    flag++;
+    while(!digitalRead(push));
   }
+  if(flag==1)
+  {
+   digitalWrite(13,HIGH);
+   store_imu();
+    
+  }
+  else if(flag==2)
+  {
+    digitalWrite(13,LOW);
+    Serial.println("recall");
+    delay(3000);
+    recall();
+    flag=-999;
+  }
+  else 
+  {
+    //int z=0;
+//   saber.write((int)0);
+//analogWrite(3,0);
+Serial1.write(0);
+   }
 }

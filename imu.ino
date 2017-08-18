@@ -4,13 +4,10 @@ void read_imu()
   {
    val=Serial3.readStringUntil('/');
    yaw=val.toInt();
-  // Serial.print(yaw);
-  // Serial.print(" ");
-   IMU_setup();
-  // Serial.println(mapyaw);
+   //Serial.println(yaw);
+   //IMU_setup();
   }
 }
-
 void IMU_setup()
 {
   if(imu_init>=0)

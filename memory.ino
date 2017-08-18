@@ -1,29 +1,66 @@
 void store_imu()
 {
-  if(abs(mapyaw-l_value)>2)
+  read_imu();
+  /*if(yaw>179||yaw<-179)
+   return;
+  */
+  if(abs(yaw-l_value)>1 )//&& yaw<200 && yaw>-200)
   {
     Serial.println("store_imu");
-    imuval[index]=mapyaw;
-    l_value=mapyaw;
-    // timedif[index]=(time2-time1);
+     imuval[index]=yaw;
+    l_value=yaw;
+    Serial.print(imuval[index]);// raw unmapped yaw
     index++;
     time2=millis();
-    //  int m=time2-time1;
-    // Serial.println(m);
      timedif[index]=(time2-time1);
      time1=time2;
-  }
+    Serial.print("--->");
+    Serial.println(timedif[index]);
+   }
+   /*if(abs(yaw-l_value)>50)
+  {
+   index--; 
+  }*/
 }
 
 void recall()
 {
   for(int i=0;i<index;i++)
   {
-    Serial.print(imuval[i]);
+    Serial.print(imuval[i]);// raw unmapped yaw
     Serial.print("--->");
     Serial.println(timedif[i]);
-    mapwheels(imuval[i]);
-   delay(timedif[i+1]);
+    /*mapwheels(imuval[i]);
+   delay(timedif[i+1]);*/
+    imu_init=imuval[i];
+       read_imu();
+    while(abs(imu_init-yaw)>5)
+    {
+      /*Attain the yaw +of imuval[i]*/
+      /*
+       * 1. Read the current yaw
+       * 2. Map it w.r.t. the initial to attain initial.
+       * 3. Map the speed of the wheels using the mapped yaw value
+       */
+       Serial.print("ArrayVal : ");Serial.print(imuval[i]);
+       read_imu();
+       Serial.print("  ----  ");
+       Serial.print(yaw);
+       IMU_setup();
+       Serial.println(String("---map---")+String(mapyaw)+String("   "));
+       mapwheels(mapyaw);
+    } 
+    /*
+  analogWrite(pwm1,0);
+  digitalWrite(dir1,HIGH);
+  analogWrite(pwm2,0);
+  digitalWrite(dir2,LOW);
+  delay(2000);
+    */
+/*    for(int j=millis();millis()-j<timedif[i-1];)
+    {
+     Serial2.write(32);
+     Serial2.write(160);
+    }*/
   }
 }
-
